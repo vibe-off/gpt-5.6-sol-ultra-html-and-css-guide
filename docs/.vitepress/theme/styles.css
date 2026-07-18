@@ -40,6 +40,14 @@
   --vp-code-block-bg: #172033;
 }
 
+:root:lang(zh-CN) {
+  --vp-font-family-base: "Microsoft YaHei UI", "PingFang SC", "Noto Sans CJK SC", "Segoe UI", system-ui, sans-serif;
+}
+
+:lang(zh-CN) .vp-doc {
+  line-height: 1.85;
+}
+
 .dark {
   --vp-c-brand-1: #ff9b80;
   --vp-c-brand-2: #ff9b80;

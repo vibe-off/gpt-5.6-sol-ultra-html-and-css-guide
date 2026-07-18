@@ -1,5 +1,19 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
+import { useCourseLocale } from '../course-locale'
+
+const { isZh, text } = useCourseLocale({
+  en: {
+    eyebrow: 'Cascade simulator', title: 'Change the contest. Explain the winner.', badge: 'Rule comparison',
+    legend: 'Choose a cascade scenario', expected: 'Expected winner',
+    labels: { order: 'Source order', specificity: 'Specificity', important: '!important', inline: 'Inline style' }
+  },
+  zh: {
+    eyebrow: '层叠模拟器', title: '改变竞争条件，并解释胜出规则。', badge: '规则比较',
+    legend: '选择一个层叠场景', expected: '预期胜出值',
+    labels: { order: '源码顺序', specificity: '优先级', important: '!important', inline: '行内样式' }
+  }
+})
 
 type Scenario = 'order' | 'specificity' | 'important' | 'inline'
 
@@ -33,20 +47,29 @@ const scenarios: Record<Scenario, { code: string; winner: string; reason: string
 }
 
 const active = computed(() => scenarios[scenario.value])
+const activeReason = computed(() => {
+  if (!isZh.value) return active.value.reason
+  return {
+    order: '两条声明的来源、重要性、层、优先级都相同，因此后出现的声明胜出。',
+    specificity: '较早的 ID 选择器优先级高于较晚的类选择器，因此不会比较源码顺序。',
+    important: '作者样式中的重要声明高于普通声明。请谨慎使用这个逃生口。',
+    inline: '普通行内声明高于通过选择器定义的普通作者声明。'
+  }[scenario.value]
+})
 </script>
 
 <template>
   <section class="lab-widget" aria-labelledby="cascade-lab-title">
     <div class="lab-widget__header">
       <div>
-        <p class="eyebrow">Cascade simulator</p>
-        <h3 id="cascade-lab-title">Change the contest. Explain the winner.</h3>
+        <p class="eyebrow">{{ text.eyebrow }}</p>
+        <h3 id="cascade-lab-title">{{ text.title }}</h3>
       </div>
-      <span class="lab-widget__badge">Rule comparison</span>
+      <span class="lab-widget__badge">{{ text.badge }}</span>
     </div>
 
     <fieldset class="segmented-control">
-      <legend class="visually-hidden">Choose a cascade scenario</legend>
+      <legend class="visually-hidden">{{ text.legend }}</legend>
       <button
         v-for="(_, key) in scenarios"
         :key="key"
@@ -54,16 +77,16 @@ const active = computed(() => scenarios[scenario.value])
         :aria-pressed="scenario === key"
         @click="scenario = key as Scenario"
       >
-        {{ key === 'order' ? 'Source order' : key === 'specificity' ? 'Specificity' : key === 'important' ? '!important' : 'Inline style' }}
+        {{ text.labels[key] }}
       </button>
     </fieldset>
 
     <div class="cascade-result">
       <pre class="lab-widget__code"><code>{{ active.code }}</code></pre>
       <div class="cascade-result__answer" role="status" aria-live="polite" aria-atomic="true">
-        <span>Expected winner</span>
+        <span>{{ text.expected }}</span>
         <strong :class="`cascade-tone--${active.tone}`">{{ active.winner }}</strong>
-        <p>{{ active.reason }}</p>
+        <p>{{ activeReason }}</p>
       </div>
     </div>
   </section>

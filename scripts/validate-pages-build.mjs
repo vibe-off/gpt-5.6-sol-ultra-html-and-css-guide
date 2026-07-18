@@ -73,8 +73,28 @@ for (const file of htmlFiles) {
   }
 }
 
-if (htmlFiles.length < 40) {
-  failures.push(`Expected at least 40 generated HTML pages; found ${htmlFiles.length}.`)
+if (htmlFiles.length < 90) {
+  failures.push(`Expected at least 90 bilingual generated HTML pages; found ${htmlFiles.length}.`)
+}
+
+const rootHtml = readFileSync(join(outputRoot, 'index.html'), 'utf8')
+const chineseHtml = readFileSync(join(outputRoot, 'zh', 'index.html'), 'utf8')
+const englishLessonHtml = readFileSync(join(outputRoot, 'css', 'box-model.html'), 'utf8')
+const chineseLessonHtml = readFileSync(join(outputRoot, 'zh', 'css', 'box-model.html'), 'utf8')
+
+if (!rootHtml.includes('lang="en-US"')) failures.push('English home page does not declare lang="en-US".')
+if (!chineseHtml.includes('lang="zh-CN"')) failures.push('Chinese home page does not declare lang="zh-CN".')
+if (!rootHtml.includes(`${expectedBase}zh/`)) failures.push('English home page does not expose the Chinese locale link.')
+if (!chineseHtml.includes(`href="${expectedBase}"`)) failures.push('Chinese home page does not expose the English locale link.')
+if (!englishLessonHtml.includes(`${expectedBase}zh/css/box-model`)) {
+  failures.push('English lesson does not preserve its route when switching to Chinese.')
+}
+if (!chineseLessonHtml.includes(`${expectedBase}css/box-model`)) {
+  failures.push('Chinese lesson does not preserve its route when switching to English.')
+}
+
+for (const asset of ['favicon.ico', 'favicon-32.png', 'favicon-192.png', 'apple-touch-icon.png']) {
+  if (!existsSync(join(outputRoot, asset))) failures.push(`GitHub Pages output is missing ${asset}.`)
 }
 
 if (rootReferenceCount === 0) {

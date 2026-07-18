@@ -5,6 +5,7 @@ const projectRoot = resolve(import.meta.dirname, '..')
 const docsRoot = join(projectRoot, 'docs')
 const configPath = join(docsRoot, '.vitepress', 'config.mts')
 const themePath = join(docsRoot, '.vitepress', 'theme', 'index.ts')
+const chineseRoot = join(docsRoot, 'zh')
 
 const failures = []
 
@@ -65,8 +66,28 @@ function report(file, message) {
 const markdownFiles = collectFiles(docsRoot, '.md').sort()
 const publicHtmlFiles = collectFiles(join(docsRoot, 'public'), '.html').sort()
 
-if (markdownFiles.length < 40) {
-  failures.push(`Expected at least 40 course pages; found ${markdownFiles.length}.`)
+if (markdownFiles.length < 80) {
+  failures.push(`Expected at least 80 bilingual course pages; found ${markdownFiles.length}.`)
+}
+
+const englishRelativePaths = markdownFiles
+  .map((file) => relative(docsRoot, file).replaceAll('\\', '/'))
+  .filter((path) => !path.startsWith('zh/'))
+
+const chineseRelativePaths = markdownFiles
+  .map((file) => relative(chineseRoot, file).replaceAll('\\', '/'))
+  .filter((path) => !path.startsWith('../'))
+
+for (const path of englishRelativePaths) {
+  if (!chineseRelativePaths.includes(path)) {
+    failures.push(`Missing Simplified Chinese mirror: docs/zh/${path}`)
+  }
+}
+
+for (const path of chineseRelativePaths) {
+  if (!englishRelativePaths.includes(path)) {
+    failures.push(`Chinese page has no English source mirror: docs/zh/${path}`)
+  }
 }
 
 const pageRoutes = new Set()
@@ -82,14 +103,15 @@ for (const file of markdownFiles) {
     ? '/'
     : `/${relativePath.replace(/index\.md$/, '').replace(/\.md$/, '')}`
   pageRoutes.add(route.endsWith('/') || route === '/' ? route : route.replace(/\/$/, ''))
+  const isLocaleHome = relativePath === 'index.md' || relativePath === 'zh/index.md'
 
   if (!source.startsWith('---\n')) report(file, 'Missing YAML frontmatter.')
 
-  if (relativePath !== 'index.md' && !/^title:\s*.+$/m.test(source)) {
+  if (!isLocaleHome && !/^title:\s*.+$/m.test(source)) {
     report(file, 'Frontmatter is missing a title.')
   }
 
-  if (relativePath !== 'index.md' && !/^#\s+\S+/m.test(cleanSource)) {
+  if (!isLocaleHome && !/^#\s+\S+/m.test(cleanSource)) {
     report(file, 'Page is missing a level-one heading.')
   }
 
@@ -98,6 +120,11 @@ for (const file of markdownFiles) {
 
   if (/\b(?:TODO|TBD|FIXME)\b/.test(cleanSource)) {
     report(file, 'Contains an unfinished placeholder marker.')
+  }
+
+  const isChinesePage = relativePath.startsWith('zh/')
+  if (isChinesePage && (cleanSource.match(/[\u3400-\u9fff]/g) ?? []).length < 100) {
+    report(file, 'Chinese mirror contains too little Simplified Chinese learner-facing content.')
   }
 
   if (/<(?:a|img|link|script)\b[^>]*(?:href|src)=["']\//i.test(cleanSource)) {
@@ -118,16 +145,19 @@ for (const file of markdownFiles) {
     if (/^(?:https?:|mailto:|tel:|#)/.test(target)) continue
     if (!target.startsWith('/')) continue
     internalLinkCount += 1
+    if (isChinesePage && target !== '/zh/' && !target.startsWith('/zh/')) {
+      report(file, `Chinese page links outside the Chinese route tree: ${target}`)
+    }
     if (!pageExists(target)) report(file, `Broken internal link: ${target}`)
   }
 }
 
-if (headingCount < 250) {
-  failures.push(`Expected at least 250 headings; found ${headingCount}.`)
+if (headingCount < 500) {
+  failures.push(`Expected at least 500 bilingual headings; found ${headingCount}.`)
 }
 
-if (characterCount < 75000) {
-  failures.push(`Expected at least 75,000 non-whitespace characters; found ${characterCount}.`)
+if (characterCount < 150000) {
+  failures.push(`Expected at least 150,000 bilingual non-whitespace characters; found ${characterCount}.`)
 }
 
 const configSource = readFileSync(configPath, 'utf8')
@@ -157,8 +187,8 @@ for (const match of themeSource.matchAll(/from '\.\/components\/([^']+)'/g)) {
   if (!existsSync(componentPath)) report(themePath, `Missing registered component: ${match[1]}`)
 }
 
-if (publicHtmlFiles.length < 8) {
-  failures.push(`Expected at least 8 runnable public HTML starters; found ${publicHtmlFiles.length}.`)
+if (publicHtmlFiles.length < 16) {
+  failures.push(`Expected at least 16 bilingual runnable public HTML starters; found ${publicHtmlFiles.length}.`)
 }
 
 for (const file of publicHtmlFiles) {
@@ -170,6 +200,7 @@ for (const file of publicHtmlFiles) {
   if (!/<meta\s+charset=["']utf-8["']/i.test(source)) report(file, 'Starter is missing UTF-8 metadata.')
   if (!/<meta\s+name=["']viewport["']/i.test(source)) report(file, 'Starter is missing viewport metadata.')
   if (!/<title>[^<]+<\/title>/i.test(source)) report(file, 'Starter is missing a page title.')
+  if (!/<link\b[^>]*\brel=["']icon["']/i.test(source)) report(file, 'Starter is missing a favicon link.')
   if (!/<h1(?:\s[^>]*)?>[\s\S]*?<\/h1>/i.test(source)) report(file, 'Starter is missing a level-one heading.')
 
   for (const match of source.matchAll(/(?:href|src)=["']([^"']+)["']/gi)) {
@@ -177,7 +208,7 @@ for (const file of publicHtmlFiles) {
     if (!target || /^(?:https?:|mailto:|tel:|data:|javascript:)/i.test(target)) continue
 
     const intentionalMissing =
-      publicPath === 'starters/debugging-clinic/case-1/pages/index.html' &&
+      publicPath.endsWith('starters/debugging-clinic/case-1/pages/index.html') &&
       target === 'assets/css/styles.css'
     if (intentionalMissing) continue
 
@@ -190,6 +221,30 @@ for (const file of publicHtmlFiles) {
     const exists = statIsFile(candidate) || statIsFile(join(candidate, 'index.html'))
     if (!exists) report(file, `Broken relative starter asset or link: ${target}`)
   }
+
+  if (publicPath.startsWith('zh/') && !/<html\s+lang=["']zh-CN["']/i.test(source)) {
+    report(file, 'Chinese starter must declare lang="zh-CN".')
+  }
+}
+
+const faviconAssets = ['favicon.ico', 'favicon-32.png', 'favicon-192.png', 'apple-touch-icon.png']
+for (const asset of faviconAssets) {
+  const assetPath = join(docsRoot, 'public', asset)
+  if (!statIsFile(assetPath) || statSync(assetPath).size < 100) {
+    report(assetPath, 'Missing or unexpectedly small favicon asset.')
+  }
+}
+
+const configSourceChecks = [
+  "label: 'English'",
+  "lang: 'en-US'",
+  "label: '简体中文'",
+  "lang: 'zh-CN'",
+  "link: '/zh/'",
+  'i18nRouting: true'
+]
+for (const expected of configSourceChecks) {
+  if (!configSource.includes(expected)) report(configPath, `Missing i18n configuration: ${expected}`)
 }
 
 if (failures.length > 0) {

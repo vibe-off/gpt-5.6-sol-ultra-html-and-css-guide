@@ -1,5 +1,17 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
+import { useCourseLocale } from '../course-locale'
+
+const { isZh, text } = useCourseLocale({
+  en: {
+    eyebrow: 'Interactive model', title: 'See every layer of the box.', badge: 'Live CSS',
+    margin: 'Margin', border: 'Border', padding: 'Padding', content: 'content'
+  },
+  zh: {
+    eyebrow: '交互模型', title: '看清盒模型的每一层。', badge: '实时 CSS',
+    margin: '外边距', border: '边框', padding: '内边距', content: '内容'
+  }
+})
 
 const margin = ref(18)
 const border = ref(4)
@@ -21,34 +33,34 @@ const css = computed(() => `.card {
   padding: ${padding.value}px;
 }`)
 
-const summary = computed(() =>
-  `The preview uses ${margin.value} pixels of margin, a ${border.value} pixel border, ` +
-  `${padding.value} pixels of padding, and a 180 pixel border-box width.`
-)
+const summary = computed(() => isZh.value
+  ? `预览使用 ${margin.value} 像素外边距、${border.value} 像素边框、${padding.value} 像素内边距，以及 180 像素的 border-box 宽度。`
+  : `The preview uses ${margin.value} pixels of margin, a ${border.value} pixel border, ` +
+    `${padding.value} pixels of padding, and a 180 pixel border-box width.`)
 </script>
 
 <template>
   <section class="lab-widget" aria-labelledby="box-lab-title">
     <div class="lab-widget__header">
       <div>
-        <p class="eyebrow">Interactive model</p>
-        <h3 id="box-lab-title">See every layer of the box.</h3>
+        <p class="eyebrow">{{ text.eyebrow }}</p>
+        <h3 id="box-lab-title">{{ text.title }}</h3>
       </div>
-      <span class="lab-widget__badge">Live CSS</span>
+      <span class="lab-widget__badge">{{ text.badge }}</span>
     </div>
 
     <div class="lab-widget__grid">
       <div class="control-stack">
         <label>
-          <span>Margin <output>{{ margin }}px</output></span>
+          <span>{{ text.margin }} <output>{{ margin }}px</output></span>
           <input v-model="margin" type="range" min="0" max="40" step="2">
         </label>
         <label>
-          <span>Border <output>{{ border }}px</output></span>
+          <span>{{ text.border }} <output>{{ border }}px</output></span>
           <input v-model="border" type="range" min="0" max="12">
         </label>
         <label>
-          <span>Padding <output>{{ padding }}px</output></span>
+          <span>{{ text.padding }} <output>{{ padding }}px</output></span>
           <input v-model="padding" type="range" min="0" max="48" step="2">
         </label>
       </div>
@@ -56,7 +68,7 @@ const summary = computed(() =>
       <div class="box-stage" role="img" aria-labelledby="box-summary">
         <div class="box-stage__margin">
           <div class="box-stage__box" :style="boxStyle">
-            <span>content</span>
+            <span>{{ text.content }}</span>
           </div>
         </div>
       </div>

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>案例 2 — 选择器不匹配</title>
+    <link rel="icon" href="../../../../favicon.ico">
+    <style>
+      * { box-sizing: border-box; }
+      body { margin: 0; color: #182032; background: #f3eee4; font: 1rem/1.6 system-ui, sans-serif; }
+      main { width: min(100% - 2rem, 46rem); margin-inline: auto; padding-block: 4rem; }
+      .event-card { padding: 1.5rem; border: 1px solid #c5bcae; border-radius: 1rem; background: #fffdf8; }
+      .event-card > h2 { color: #a93622; }
+      a { color: #0c625d; }
+      a:focus-visible { outline: 3px solid #0c625d; outline-offset: 3px; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>案例 02 · 选择器不匹配</h1>
+      <p>活动标题本应显示为珊瑚色。</p>
+      <article class="event-card">
+        <div class="event-card__body">
+          <h2>夜间版画工作坊</h2>
+          <p>检查为什么这条有效的标题规则从未出现在匹配规则列表中。</p>
+          <a href="../">返回全部案例</a>
+        </div>
+      </article>
+    </main>
+  </body>
+</html>

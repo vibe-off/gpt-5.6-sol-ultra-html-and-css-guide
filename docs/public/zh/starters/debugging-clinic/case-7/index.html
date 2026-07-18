@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>案例 7 — 仅鼠标可用的控件</title>
+    <link rel="icon" href="../../../../favicon.ico">
+    <style>
+      * { box-sizing: border-box; }
+      body { margin: 0; color: #182032; background: #f3eee4; font: 1rem/1.6 system-ui, sans-serif; }
+      main { width: min(100% - 2rem, 40rem); margin-inline: auto; padding-block: 4rem; }
+      .dropdown { position: relative; }
+      .dropdown__trigger { display: inline-flex; min-height: 2.75rem; align-items: center; padding: .6rem 1rem; border-radius: .6rem; color: white; background: #a93622; cursor: pointer; }
+      .dropdown__menu { width: 18rem; margin-top: .5rem; padding: 1rem; border: 1px solid #747c8c; background: #fffdf8; }
+      .dropdown__menu[hidden] { display: none; }
+      a { color: #0c625d; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p>案例 07 · 先用鼠标打开菜单，再尝试只用键盘完成同样操作。</p>
+      <h1>工作坊筛选器</h1>
+      <div class="dropdown">
+        <div class="dropdown__trigger" role="button" aria-expanded="false" aria-controls="filter-menu">显示筛选项</div>
+        <div id="filter-menu" class="dropdown__menu" hidden>
+          <label><input type="checkbox" name="topic" value="print"> 版画</label>
+        </div>
+      </div>
+      <p>找出原生元素能够提供哪些语义、焦点、激活和状态行为。</p>
+      <p><a href="../">返回全部案例</a></p>
+    </main>
+    <script>
+      const trigger = document.querySelector('.dropdown__trigger')
+      const menu = document.querySelector('#filter-menu')
+      trigger.addEventListener('click', () => {
+        const open = trigger.getAttribute('aria-expanded') === 'true'
+        trigger.setAttribute('aria-expanded', String(!open))
+        menu.hidden = open
+      })
+    </script>
+  </body>
+</html>

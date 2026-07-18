@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>案例 3 — 特异性升级</title>
+    <link rel="icon" href="../../../../favicon.ico">
+    <style>
+      * { box-sizing: border-box; }
+      body { margin: 0; color: #182032; background: #f3eee4; font: 1rem/1.6 system-ui, sans-serif; }
+      #events .card { padding: 1.5rem; border: .35rem solid #747c8c; border-radius: 1rem; background: #fffdf8; }
+      .card.is-selected { border-color: #0c625d; }
+      main { width: min(100% - 2rem, 46rem); margin-inline: auto; padding-block: 4rem; }
+      a { color: #0c625d; }
+    </style>
+  </head>
+  <body>
+    <main id="events">
+      <p>案例 03 · 被选中的卡片本应显示青绿色边框。</p>
+      <article class="card is-selected">
+        <h1>校园电影之夜</h1>
+        <p>追踪胜出的边框声明，然后降低基础选择器的特异性，而不是继续提高状态规则。</p>
+        <a href="../">返回全部案例</a>
+      </article>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>调试诊所起始案例</title>
+    <link rel="icon" href="../../../favicon.ico">
+    <style>
+      * { box-sizing: border-box; }
+      body { margin: 0; color: #182032; background: #f3eee4; font: 1rem/1.6 system-ui, sans-serif; }
+      main { width: min(100% - 2rem, 62rem); margin-inline: auto; padding-block: 4rem; }
+      h1 { max-width: 14ch; font-size: clamp(2.4rem, 8vw, 5rem); line-height: 1; letter-spacing: -.045em; }
+      p { max-width: 65ch; }
+      ol { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1rem; padding: 0; list-style: none; }
+      a { display: block; min-height: 9rem; padding: 1.2rem; border: 1px solid #c5bcae; border-radius: 1rem; color: #182032; background: #fffdf8; text-decoration: none; box-shadow: 0 8px 22px #392c1f12; }
+      a:hover { border-color: #a93622; transform: translateY(-2px); }
+      a:focus-visible { outline: 3px solid #0c625d; outline-offset: 3px; }
+      strong { display: block; margin-bottom: .4rem; color: #a93622; }
+      span { color: #5f6878; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p>HTML 与 CSS 实战指南 · 可运行起始案例</p>
+      <h1>七个证据案例</h1>
+      <p>每个页面都包含一个刻意设置的缺陷。请复现问题、检查浏览器证据、形成假设，并完成最小且有依据的补丁。</p>
+      <ol>
+        <li><a href="case-1/pages/"><strong>01 · 样式表缺失</strong><span>路径与 Network 面板</span></a></li>
+        <li><a href="case-2/"><strong>02 · 选择器不匹配</strong><span>DOM 关系</span></a></li>
+        <li><a href="case-3/"><strong>03 · 特异性升级</strong><span>计算样式追踪</span></a></li>
+        <li><a href="case-4/"><strong>04 · 盒子溢出</strong><span>盒模型计算</span></a></li>
+        <li><a href="case-5/"><strong>05 · Flex 最小尺寸</strong><span>内在尺寸</span></a></li>
+        <li><a href="case-6/"><strong>06 · 层叠陷阱</strong><span>祖先上下文</span></a></li>
+        <li><a href="case-7/"><strong>07 · 仅鼠标可用的控件</strong><span>原生交互</span></a></li>
+      </ol>
+    </main>
+  </body>
+</html>
