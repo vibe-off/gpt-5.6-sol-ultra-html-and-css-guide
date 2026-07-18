@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Case 5 — Flex minimum</title>
+    <style>
+      * { box-sizing: border-box; }
+      body { margin: 0; color: #182032; background: #f3eee4; font: 1rem/1.6 system-ui, sans-serif; }
+      main { width: min(100% - 2rem, 40rem); margin-inline: auto; padding-block: 4rem; }
+      .toolbar { display: flex; align-items: center; gap: 1rem; padding: 1rem; border: 2px solid #a93622; background: #fffdf8; }
+      .toolbar__title { flex: 1 1 auto; white-space: nowrap; }
+      .toolbar__code { font-family: monospace; }
+      button { flex: 0 0 auto; min-height: 2.75rem; }
+      a { color: #0c625d; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Case 05 · Flex minimum</h1>
+      <p>Narrow the viewport until the toolbar escapes its container.</p>
+      <div class="toolbar">
+        <strong class="toolbar__title">Course <span class="toolbar__code">INTERDISCIPLINARY_VISUAL_COMMUNICATION_2026</span></strong>
+        <button type="button">Open</button>
+      </div>
+      <p>Inspect the flex child's automatic minimum and the unbroken content before choosing a wrapping strategy.</p>
+      <p><a href="../">Return to all cases</a></p>
+    </main>
+  </body>
+</html>

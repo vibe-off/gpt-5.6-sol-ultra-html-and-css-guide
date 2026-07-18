@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Debugging Clinic Starters</title>
+    <style>
+      * { box-sizing: border-box; }
+      body { margin: 0; color: #182032; background: #f3eee4; font: 1rem/1.6 system-ui, sans-serif; }
+      main { width: min(100% - 2rem, 62rem); margin-inline: auto; padding-block: 4rem; }
+      h1 { max-width: 14ch; font-size: clamp(2.4rem, 8vw, 5rem); line-height: 1; letter-spacing: -.045em; }
+      p { max-width: 65ch; }
+      ol { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1rem; padding: 0; list-style: none; }
+      a { display: block; min-height: 9rem; padding: 1.2rem; border: 1px solid #c5bcae; border-radius: 1rem; color: #182032; background: #fffdf8; text-decoration: none; box-shadow: 0 8px 22px #392c1f12; }
+      a:hover { border-color: #a93622; transform: translateY(-2px); }
+      a:focus-visible { outline: 3px solid #0c625d; outline-offset: 3px; }
+      strong { display: block; margin-bottom: .4rem; color: #a93622; }
+      span { color: #5f6878; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p>HTML &amp; CSS Field Guide · runnable starters</p>
+      <h1>Seven evidence cases</h1>
+      <p>Each page contains one intentional defect. Reproduce it, inspect browser evidence, form a hypothesis, and make the smallest justified patch.</p>
+      <ol>
+        <li><a href="case-1/pages/"><strong>01 · Missing stylesheet</strong><span>Paths and the Network panel</span></a></li>
+        <li><a href="case-2/"><strong>02 · Selector mismatch</strong><span>DOM relationships</span></a></li>
+        <li><a href="case-3/"><strong>03 · Specificity escalation</strong><span>Computed-style trace</span></a></li>
+        <li><a href="case-4/"><strong>04 · Box overflow</strong><span>Box-model arithmetic</span></a></li>
+        <li><a href="case-5/"><strong>05 · Flex minimum</strong><span>Intrinsic sizing</span></a></li>
+        <li><a href="case-6/"><strong>06 · Stacking trap</strong><span>Ancestor contexts</span></a></li>
+        <li><a href="case-7/"><strong>07 · Mouse-only control</strong><span>Native interaction</span></a></li>
+      </ol>
+    </main>
+  </body>
+</html>
+

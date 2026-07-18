@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Case 3 — Specificity escalation</title>
+    <style>
+      * { box-sizing: border-box; }
+      body { margin: 0; color: #182032; background: #f3eee4; font: 1rem/1.6 system-ui, sans-serif; }
+      #events .card { padding: 1.5rem; border: .35rem solid #747c8c; border-radius: 1rem; background: #fffdf8; }
+      .card.is-selected { border-color: #0c625d; }
+      main { width: min(100% - 2rem, 46rem); margin-inline: auto; padding-block: 4rem; }
+      a { color: #0c625d; }
+    </style>
+  </head>
+  <body>
+    <main id="events">
+      <p>Case 03 · The selected card should have a teal border.</p>
+      <article class="card is-selected">
+        <h1>Campus film night</h1>
+        <p>Trace the winning border declaration, then reduce the base selector instead of escalating the state rule.</p>
+        <a href="../">Return to all cases</a>
+      </article>
+    </main>
+  </body>
+</html>
+

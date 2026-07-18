@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Case 2 — Selector mismatch</title>
+    <style>
+      * { box-sizing: border-box; }
+      body { margin: 0; color: #182032; background: #f3eee4; font: 1rem/1.6 system-ui, sans-serif; }
+      main { width: min(100% - 2rem, 46rem); margin-inline: auto; padding-block: 4rem; }
+      .event-card { padding: 1.5rem; border: 1px solid #c5bcae; border-radius: 1rem; background: #fffdf8; }
+      .event-card > h2 { color: #a93622; }
+      a { color: #0c625d; }
+      a:focus-visible { outline: 3px solid #0c625d; outline-offset: 3px; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Case 02 · Selector mismatch</h1>
+      <p>The event heading should be coral.</p>
+      <article class="event-card">
+        <div class="event-card__body">
+          <h2>Night printmaking workshop</h2>
+          <p>Inspect why the valid heading rule never appears in the matched-rule list.</p>
+          <a href="../">Return to all cases</a>
+        </div>
+      </article>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Case 6 — Stacking trap</title>
+    <style>
+      * { box-sizing: border-box; }
+      body { margin: 0; color: #182032; background: #f3eee4; font: 1rem/1.6 system-ui, sans-serif; }
+      main { width: min(100% - 2rem, 46rem); margin-inline: auto; padding-block: 4rem; }
+      .hero { position: relative; z-index: 1; min-height: 15rem; padding: 1.5rem; background: #fffdf8; transform: translateZ(0); }
+      .menu { position: absolute; z-index: 9999; right: 1rem; bottom: -4rem; width: 15rem; padding: 1rem; color: white; background: #273967; }
+      .schedule { position: relative; z-index: 2; min-height: 10rem; margin-top: -2rem; padding: 5rem 1.5rem 1.5rem; background: #d7d0c5; }
+      a { color: #0c625d; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p>Case 06 · The blue menu should sit above the schedule.</p>
+      <section class="hero">
+        <h1>Exhibition week</h1>
+        <div class="menu">Menu with z-index: 9999</div>
+      </section>
+      <section class="schedule"><h2>Schedule</h2><p>Inspect ancestor stacking contexts before increasing the number.</p></section>
+      <p><a href="../">Return to all cases</a></p>
+    </main>
+  </body>
+</html>
+

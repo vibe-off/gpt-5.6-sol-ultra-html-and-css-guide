@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Case 7 — Mouse-only control</title>
+    <style>
+      * { box-sizing: border-box; }
+      body { margin: 0; color: #182032; background: #f3eee4; font: 1rem/1.6 system-ui, sans-serif; }
+      main { width: min(100% - 2rem, 40rem); margin-inline: auto; padding-block: 4rem; }
+      .dropdown { position: relative; }
+      .dropdown__trigger { display: inline-flex; min-height: 2.75rem; align-items: center; padding: .6rem 1rem; border-radius: .6rem; color: white; background: #a93622; cursor: pointer; }
+      .dropdown__menu { width: 18rem; margin-top: .5rem; padding: 1rem; border: 1px solid #747c8c; background: #fffdf8; }
+      .dropdown__menu[hidden] { display: none; }
+      a { color: #0c625d; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p>Case 07 · Open the menu by mouse, then try the same task by keyboard.</p>
+      <h1>Workshop filters</h1>
+      <div class="dropdown">
+        <div class="dropdown__trigger" role="button" aria-expanded="false" aria-controls="filter-menu">Show filters</div>
+        <div id="filter-menu" class="dropdown__menu" hidden>
+          <label><input type="checkbox" name="topic" value="print"> Printmaking</label>
+        </div>
+      </div>
+      <p>Identify which semantics, focus, activation, and state behavior a native element would provide.</p>
+      <p><a href="../">Return to all cases</a></p>
+    </main>
+    <script>
+      const trigger = document.querySelector('.dropdown__trigger')
+      const menu = document.querySelector('#filter-menu')
+      trigger.addEventListener('click', () => {
+        const open = trigger.getAttribute('aria-expanded') === 'true'
+        trigger.setAttribute('aria-expanded', String(!open))
+        menu.hidden = open
+      })
+    </script>
+  </body>
+</html>
