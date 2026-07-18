@@ -100,12 +100,17 @@ for (const file of markdownFiles) {
     report(file, 'Contains an unfinished placeholder marker.')
   }
 
+  if (/<(?:a|img|link|script)\b[^>]*(?:href|src)=["']\//i.test(cleanSource)) {
+    report(file, 'Raw root-relative HTML asset or link must use withBase() for subpath deployments.')
+  }
+
   headingCount += (cleanSource.match(/^#{1,6}\s+\S+/gm) ?? []).length
   characterCount += cleanSource.replace(/\s/g, '').length
 
   const targets = [
     ...cleanSource.matchAll(/\[[^\]]+\]\(([^)]+)\)/g),
     ...cleanSource.matchAll(/href=["']([^"']+)["']/g),
+    ...cleanSource.matchAll(/withBase\(["']([^"']+)["']\)/g),
     ...source.matchAll(/^\s+link:\s+(\/\S+)\s*$/gm)
   ].map((match) => match[1].trim().replace(/^<|>$/g, ''))
 

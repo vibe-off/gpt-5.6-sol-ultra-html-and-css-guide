@@ -1,6 +1,9 @@
 import { defineConfig } from 'vitepress'
 
+const base = process.env.VITEPRESS_BASE ?? '/'
+
 export default defineConfig({
+  base,
   lang: 'en-US',
   title: 'HTML & CSS Field Guide',
   description: 'An AI-aware, fundamentals-first course for learning the language of the web.',
@@ -32,6 +35,9 @@ export default defineConfig({
   },
   themeConfig: {
     siteTitle: 'Field Guide',
+    socialLinks: [
+      { icon: 'github', link: 'https://github.com/vibe-off/gpt-5.6-sol-ultra-html-and-css-guide' }
+    ],
     nav: [
       { text: 'Start here', link: '/start/' },
       { text: 'HTML', link: '/html/' },

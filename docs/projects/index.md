@@ -3,6 +3,10 @@ title: How projects work
 description: A repeatable lab format with requirements, intentional constraints, browser evidence, AI disclosure, live changes, and explanation.
 ---
 
+<script setup>
+import { withBase } from 'vitepress'
+</script>
+
 # Practice ends with evidence
 
 <p class="lesson-lead">Projects combine concepts under realistic change. Every build includes an intentional constraint, an evidence record, and an explain-it-back moment.</p>
@@ -68,22 +72,22 @@ The evidence file can be a classroom form or spoken walk-through when appropriat
   <div class="lesson-card">
     <h3>01 · Profile card</h3>
     <p>Box model, typography, media, intrinsic sizing, visible focus, and one responsive component.</p>
-    <p><a href="/projects/profile-card">Open the lab →</a></p>
+    <p><a :href="withBase('/projects/profile-card')">Open the lab →</a></p>
   </div>
   <div class="lesson-card">
     <h3>02 · Campus article</h3>
     <p>Semantic hierarchy, readable prose, figures, navigation, Grid/Flexbox, and responsive regions.</p>
-    <p><a href="/projects/campus-article">Open the lab →</a></p>
+    <p><a :href="withBase('/projects/campus-article')">Open the lab →</a></p>
   </div>
   <div class="lesson-card">
     <h3>03 · Debugging clinic</h3>
     <p>Unknown defects in paths, selectors, cascade, overflow, positioning, focus, and forms.</p>
-    <p><a href="/projects/debugging-clinic">Enter the clinic →</a></p>
+    <p><a :href="withBase('/projects/debugging-clinic')">Enter the clinic →</a></p>
   </div>
   <div class="lesson-card">
     <h3>04 · Campus hub</h3>
     <p>A multi-page capstone with accessible navigation, content, events, registration, and a live change.</p>
-    <p><a href="/projects/capstone">Read the capstone →</a></p>
+    <p><a :href="withBase('/projects/capstone')">Read the capstone →</a></p>
   </div>
 </div>
 
@@ -116,4 +120,3 @@ The student should be able to trace the impact and implement a local change.
     <li>I can apply a live change without replacing the entire solution.</li>
   </ul>
 </div>
-

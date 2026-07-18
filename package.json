@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "vitepress dev docs",
     "validate": "node scripts/validate-content.mjs",
+    "validate:pages": "node scripts/validate-pages-build.mjs",
     "build": "npm run validate && vitepress build docs",
     "build:sites": "npm run build && node scripts/prepare-sites-build.mjs && node scripts/validate-sites-build.mjs",
     "preview": "node scripts/serve-static.mjs docs/.vitepress/dist"

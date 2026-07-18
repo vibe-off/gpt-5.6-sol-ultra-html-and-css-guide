@@ -3,6 +3,10 @@ title: Debugging clinic
 description: Diagnose a set of unfamiliar HTML and CSS defects using reproduction statements, browser evidence, minimal patches, and regression checks.
 ---
 
+<script setup>
+import { withBase } from 'vitepress'
+</script>
+
 # Debugging clinic: seven evidence cases
 
 <p class="lesson-lead">The clinic does not reward the fastest visual patch. It rewards a reproducible symptom, a supported cause, the smallest intentional fix, and a regression check.</p>
@@ -32,7 +36,7 @@ Do not use `!important`, page-level overflow clipping, fixed heights for text, o
 
 <div class="build-brief">
   <h3>Open the runnable clinic</h3>
-  <p><a href="/starters/debugging-clinic/">Launch the seven starter cases</a>. Each standalone page contains one intentional defect and can be saved with the rest of the public starter folder for local editing.</p>
+  <p><a :href="withBase('/starters/debugging-clinic/')">Launch the seven starter cases</a>. Each standalone page contains one intentional defect and can be saved with the rest of the public starter folder for local editing.</p>
 </div>
 
 ## Case 1: The invisible stylesheet
